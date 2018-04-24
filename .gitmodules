@@ -1,3 +1,4 @@
 [submodule "ios"]
 	path = ios
 	url = git@github.com:tomoyuki-ito/rn-hybrid-ios.git
+        ignore = dirty
