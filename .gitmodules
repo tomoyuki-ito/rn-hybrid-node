@@ -2,3 +2,6 @@
 	path = ios
 	url = git@github.com:tomoyuki-ito/rn-hybrid-ios.git
         ignore = dirty
+[submodule "android"]
+	path = android
+	url = https://github.com/tomoyuki-ito/rn-hybrid-android
