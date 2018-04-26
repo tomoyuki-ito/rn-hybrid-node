@@ -61,3 +61,48 @@ yarn add react@16.0.0
 ### 参考サイト
 [React Nativeハイブリッドアプリケーション開発ことはじめ](http://tomoima525.hatenablog.com/entry/2017/12/19/180523)  
 [tomoima525/react-native-hybrid-app](https://github.com/tomoima525/react-native-hybrid-app)  
+
+## ReactNative Componentの作成と呼び出し
+
+ネイティブコードからReactNativeのComponent(画面)を呼び出すには、iosの場合はRCTRootView、androidの場合はReactRootViewというクラスを使用します。またComponentは事前にAppRegistryという管理モジュールに登録しておく必要があります。
+
+### RootComponentの登録
+
+ReactNativeのエントリポイントであるindex.js内に以下のようなコードを追加します。
+```
+// componentを実装
+class Profile extends React.Component {
+  ...
+}
+...
+
+// componentをrootから呼び出せるよう登録(複数可能)。呼び出しキーとclassを指定
+AppRegistry.registerComponent('Profile', () => Profile)
+AppRegistry.registerComponent('Account', () => Account)
+...
+```
+[AppRegistory - Docs](https://facebook.github.io/react-native/docs/appregistry.html#docsNav)
+
+### iosからの呼び出し
+
+RCTRootViewのイニシャライザにmoduleNameという引数が用意されているので、AppRegistryに登録したcomponentを指定します。
+```
+let moduleName = "Profile"
+let rootView = RCTRootView(
+    bundleURL: jsCodeLocation,
+    moduleName: moduleName,
+    initialProperties: props,
+    launchOptions: nil
+)
+```
+
+### androidからの呼び出し
+
+ReactRootViewのstartReactApplicationメソッドコール時に、AppRegistryに登録したcomponentを指定します。
+```
+ReactRootView rootView = new ReactRootView(this);
+ReactInstanceManager instanceManager = ReactInstanceManager.builder()
+...
+rootView.startReactApplication(instanceManager, "Profile", bundle);
+
+```
