@@ -1,5 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Button } from 'react-native'
+
+import { closeModal } from '../native/NativeRequest'
 
 class Profile extends React.Component {
 
@@ -8,6 +10,10 @@ class Profile extends React.Component {
       <View style={styles.container}>
         <Text style={styles.title}>Profile</Text>
         <Text style={styles.message}>{this.props['message']}</Text>
+        <Button
+          title={'Close'}
+          onPress={() => closeModal()}
+        />
       </View>
     )
   }
